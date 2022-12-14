@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    background: black;
+}
+img{
+    width: 105%;
+    height: 10%;
+    opacity: 50%;
+}
+.box{
+    position: absolute;
+    width: 360px;
+    height: 520px;
+    background-color: #DCD9D4;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), radial-gradient(at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.50) 50%);
+    background-blend-mode: soft-light,screen;
+    border-radius: 25px;
+}
+.box h1{
+    text-align: center;
+    font-size: 28px;
+    margin: 10px;
+    font-family: Secular One;
+}
+.box p{
+    text-align: center;
+    margin: 15px;
+    font-family: Secular One;
+    font-size: 15px;
+}
+.box button{
+    border-radius: 10px;
+    width: 130px;
+    height: 30px;
+    font-family: Secular One;
+    cursor: pointer;
+    border-color: #e4aa4c;
+    background-color: #DCD9D4;
+    margin-left: 120px;
+}
+.box button:hover{
+    background-color: #e4aa4c;
+}
+.glow::before , .glow::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #DCD9D4;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), radial-gradient(at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.50) 50%);
+    background-blend-mode: soft-light,screen;
+    width: calc(100% + 1px);
+    height: calc(100% + 1px);
+    z-index: -1;
+    border-radius: 25px;
+}
+.glow::after{
+    filter: blur(60px);
+}
+
+.box2{
+    position: absolute;
+    width: 760px;
+    height: 520px;
+    background-color: #DCD9D4;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), radial-gradient(at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.50) 50%);
+    background-blend-mode: soft-light,screen;
+    border-radius: 25px;
+}
+.box2 h1{
+    text-align: center;
+    font-size: 28px;
+    margin: 10px;
+    font-family: Secular One;
+}
+.box2 p{
+    text-align: center;
+    margin: 15px;
+    font-family: Secular One;
+    font-size: 15px;
+}
+
+.izquierda{
+    background-image: linear-gradient(-120deg, #89f7fe 0%, #66a6ff 100%);    background-size: cover;
+    background-position: center;
+    width: 40%;
+    height: 67vh;
+    border-radius: 0px 0px 0px 25px;
+    justify-content: center;
+    align-items: center;
+}
+.izquierda form{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    justify-content: center;
+}
+.izquierda h2{
+    font-family: Secular One;
+    margin: 10px;
+}
+.izquierda .imputNom{
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+}
+.izquierda .imputNom input{
+    width: 180px;
+    height: 25px;
+    text-align: center;
+    border-radius: 5px;
+    margin-left: 65px;
+    font-size: 12px;
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+}
+.izquierda .imputNom span{
+    font-family: Secular One;
+    font-size: 12px;
+    position: absolute;
+    margin-left: 10px;
+    pointer-events: none;
+}
+.izquierda .Boton input{
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: Secular One;
+    cursor: pointer;
+    border-color: #e4aa4c;
+    background-color: #DCD9D4;
+    display: block;
+    margin: auto;
+    margin-top: 50px;
+}
+.izquierda .Boton input:hover{
+    background-color: #f1d8b0;
+}
+.derecha{
+    background-image: linear-gradient(120deg, #fe89d1 0%, #66a6ff 100%);    background-size: cover;
+    background-position: center;
+    width: 60%;
+    height: 67vh;
+    border-radius: 0px 0px 25px 0px;
+}
+#pantalla-dividida{
+    display: flex;
+}
+
+.derecha td,th{
+    border: solid red 1px;
+    padding: 10px;
+    text-align: center;
+    font-family: Secular One;
+    font-size: 15px;
+}
+.derecha table{
+    margin: 10px auto;
+}

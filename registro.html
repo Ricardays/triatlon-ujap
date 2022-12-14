@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Registro de Participantes</title>
+</head>
+<body>
+    <!-- Fondo -->
+    <div class="poster">
+        <img src="imag/triatlon.jpg" alt="">
+    </div>
+
+    <div class="box2 glow">
+        <!-- Lista de Registro -->
+        <h1>El Gobernador Rafael Lacava te Saluda y Agradece a tu participación en el Triatlón</h1>
+        <section id="pantalla-dividida">
+            <!-- Parte Izquierda -->
+            <div class="izquierda">
+                <!-- Nombre, Cedula, municipio donde vive y edad-->
+                <form id="form" action="">
+                    <h2>Registro</h2>
+                    <div class="imputNom">
+                        <input type="text" name="nombre" id="nombre" required="required" placeholder="Introduzca el Primer Nombre">
+                        <!--<span>Nombre</span>-->
+                    </div>
+                    <div class="imputNom">
+                        <input type="number" name="cedula" id="cedula" required="required" placeholder="Introduzca la Cedula">
+                        <!--<span>Cedula</span>-->
+                    </div>
+                    <div class="imputNom">
+                        <input type="text" name="municipio" id="municipio" required="required" placeholder="Introduzca el Municipio">
+                        <!--<span>Municipio</span>-->
+                    </div>
+                    <div class="imputNom">
+                        <input type="number" name="edad" id="edad" required="required" placeholder="Introduzca su Edad">
+                        <!--<span>Edad</span>-->
+                    </div>
+                    <div class="Boton">
+                        <input type="submit" value="Añadir">
+                    </div>
+                </form>
+            </div>
+
+            <!-- Parte Derecha -->
+            <div class="derecha">
+                <table id="Tabla">
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Cedula
+                        </th>
+                        <th>
+                            Municipio
+                        </th>
+                        <th>
+                            Edad
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </div>
+    <script src="funciones.js"></script>
+</body>
+</html>
