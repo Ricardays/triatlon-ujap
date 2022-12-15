@@ -1,3 +1,9 @@
+/*
+Realizado por:
+Díaz, Ricardo	26.430.158
+Madriz, Francisco	28.480.459
+*/
+
 // Estructuras de Datos
 
 class Registro {
@@ -71,17 +77,17 @@ let timeStarted = 0;
 
 
 // TODO Recordar cambiar por valores correctos
-const DISTANCIA_TOTAL_CAMINATA = 10; // metros, valor real = 10000
-const DISTANCIA_TOTAL_NATACION = 10; // metros, valor real = 10000
-const DISTANCIA_TOTAL_CICLISMO = 30; // metros, valor real = 30000
+const DISTANCIA_TOTAL_CAMINATA = 10000; // metros, valor real = 10000 (10 km)
+const DISTANCIA_TOTAL_NATACION = 10000; // metros, valor real = 10000 (10 km)
+const DISTANCIA_TOTAL_CICLISMO = 30000; // metros, valor real = 30000 (30 km)
 
 // distancias en 1 s
 const DISTANCIA_MAX_CAMINATA = 1.94; // metros, valor real = 1.94
 const DISTANCIA_MAX_NATACION = 1.72; // metros, valor real = 1.72
 const DISTANCIA_MAX_CICLISMO = 12.50; // metros, valor real = 12.50
 
-const PROBABILIDAD_DESCALIFICACION = 0.003; // Entre 0 y 1, valor recomendado 0.003 (0.3% prob de descalificacion)
-const TIME_INTERVAL = 1000; // milisegundos, valor real = 1000
+const PROBABILIDAD_DESCALIFICACION = 0.001; // Entre 0 y 1, valor recomendado 0.001 (0.1% prob de descalificacion)
+const TIME_INTERVAL = 1000; // milisegundos, valor real = 1000 (1 segundo)
 
 // Funcion para que ningun parametro quede vacio
 

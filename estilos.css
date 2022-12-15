@@ -1,3 +1,9 @@
+/*
+Realizado por:
+Díaz, Ricardo	26.430.158
+Madriz, Francisco	28.480.459
+*/
+
 @import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
 *{
     margin: 0;
@@ -9,7 +15,7 @@ body{
     justify-content: center;
     /*align-items: center;*/
     /*min-height: 100%;*/
-    background-image: url("./imag/triatlon.jpg");
+    background-image: url("img/triatlon.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
