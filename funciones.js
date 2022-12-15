@@ -69,16 +69,17 @@ let timeStarted = 0;
 
 
 // TODO Recordar cambiar por valores correctos
-const DISTANCIA_TOTAL_CAMINATA = 1000;
-const DISTANCIA_TOTAL_NATACION = 1000;
-const DISTANCIA_TOTAL_CICLISMO = 3000;
+const DISTANCIA_TOTAL_CAMINATA = 10000; // metros, valor real = 10000
+const DISTANCIA_TOTAL_NATACION = 10000; // metros, valor real = 10000
+const DISTANCIA_TOTAL_CICLISMO = 30000; // metros, valor real = 30000
 
 // distancias en 1 s
-const DISTANCIA_MAX_CAMINATA = 1.94;
-const DISTANCIA_MAX_NATACION = 1.72;
-const DISTANCIA_MAX_CICLISMO = 12.50;
+const DISTANCIA_MAX_CAMINATA = 1.94; // metros, valor real = 1.94
+const DISTANCIA_MAX_NATACION = 1.72; // metros, valor real = 1.72
+const DISTANCIA_MAX_CICLISMO = 12.50; // metros, valor real = 12.50
 
 const PROBABILIDAD_DESCALIFICACION = 0;
+const TIME_INTERVAL = 1000; // milisegundos, valor real = 1000
 
 // Funcion para que ningun parametro quede vacio
 
@@ -254,7 +255,7 @@ function rewriteParticipants(){
         cellRef.textContent = participante.edad;
 
         cellRef = rowRef.insertCell(4);
-        cellRef.textContent = participante.recorrido;
+        cellRef.textContent = participante.recorrido.toFixed(2);
 
         cellRef = rowRef.insertCell(5);
         cellRef.textContent = participante.caminataInicio;
@@ -280,15 +281,13 @@ function writeTime(){
 
     let time = document.getElementById("time");
 
-    let ht, mt, st, mlst;
-    mls++;
+    let ht, mt, st;
+    s++;
 
-    if(mls > 99){s++; mls = 0;}
     if(s > 59){m++; s = 0;}
     if(m > 59){h++; m = 0;}
     if(h > 24) h=0;
 
-    mlst = ('0' + mls).slice(-2)
     st = ('0' + s).slice(-2)
     mt = ('0' + m).slice(-2)
     ht = ('0' + h).slice(-2)
@@ -297,11 +296,15 @@ function writeTime(){
 }
 function startTimer(){
     writeTime()
-    timeStarted = setInterval(updateParticipants, 10);
+    timeStarted = setInterval(updateParticipants, TIME_INTERVAL);
 }
 
 function updateParticipants(){
     writeTime()
+    const st = ('0' + s).slice(-2)
+    const mt = ('0' + m).slice(-2)
+    const ht = ('0' + h).slice(-2)
+
     participantes.forEach(participante => {
         if(participante.calificado){
             // El participante no ha sido descalificado
@@ -313,11 +316,11 @@ function updateParticipants(){
                     participante.calificado = false;
                 } else {
                     // Aumentar recorrido
-                    participante.recorrido += (random*DISTANCIA_MAX_CAMINATA).toFixed(2);
+                    participante.recorrido += random*DISTANCIA_MAX_CAMINATA;
                     if (participante.recorrido >= DISTANCIA_TOTAL_CAMINATA){
                         // Cumplió la caminata
-                        participante.caminataFin = "Calcular"
-                        participante.natacionInicio = "Calcular"
+                        participante.caminataFin = `${ht}:${mt}:${st}`
+                        participante.natacionInicio = `${ht}:${mt}:${st}`
                     }
                 }
             } else if(participante.recorrido < (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION)){
@@ -328,11 +331,11 @@ function updateParticipants(){
                     participante.calificado = false;
                 } else {
                     // Aumentar recorrido
-                    participante.recorrido += (random*DISTANCIA_MAX_NATACION).toFixed(2);
+                    participante.recorrido += random*DISTANCIA_MAX_NATACION;
                     if (participante.recorrido >= (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION)){
                         // Cumplió la Natación
-                        participante.natacionFin = "Calcular"
-                        participante.ciclismoInicio = "Calcular"
+                        participante.natacionFin = `${ht}:${mt}:${st}`
+                        participante.ciclismoInicio = `${ht}:${mt}:${st}`
                     }
                 }
             } else if(participante.recorrido < (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION + DISTANCIA_TOTAL_CICLISMO)) {
@@ -343,10 +346,10 @@ function updateParticipants(){
                     participante.calificado = false;
                 } else {
                     // Aumentar recorrido
-                    participante.recorrido += (random * DISTANCIA_MAX_CICLISMO).toFixed(2);
+                    participante.recorrido += random * DISTANCIA_MAX_CICLISMO;
                     if (participante.recorrido >= (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION + DISTANCIA_TOTAL_CICLISMO)) {
                         // Cumplió el Ciclismo
-                        participante.ciclismoFin = "Calcular"
+                        participante.ciclismoFin = `${ht}:${mt}:${st}`
                         // Evitar recorridos mayores a la suma de los totales
                         participante.recorrido = (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION + DISTANCIA_TOTAL_CICLISMO);
                     }
@@ -354,6 +357,10 @@ function updateParticipants(){
             }
         }
     });
+
+    participantes.sort(function (a, b) {
+        return b.recorrido - a.recorrido || b.ciclismoFin - a.ciclismoFin;
+    })
 
     rewriteParticipants();
 }
