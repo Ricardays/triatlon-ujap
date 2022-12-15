@@ -93,7 +93,7 @@ body{
     background-image: linear-gradient(-120deg, #89f7fe 0%, #66a6ff 100%);    background-size: cover;
     background-position: center;
     width: 40%;
-    height: 70.2vh;
+    height: 438.5px;
     border-radius: 0px 10px 0px 25px;
     justify-content: center;
     align-items: center;
@@ -171,13 +171,21 @@ body{
     display: flex;
 }
 
-.derecha td,th{
+.derecha td{
     border: solid red 1px;
     padding: 10px;
     text-align: center;
     font-family: Secular One;
     font-size: 15px;
-    background: linear-gradient(rgb(241, 139, 139),rgb(154, 154, 255));
+    background: #fa89fe;
+}
+.derecha th{
+    border: solid red 1px;
+    padding: 10px;
+    text-align: center;
+    font-family: Secular One;
+    font-size: 15px;
+    background: #82ff7e;
 }
 .derecha table{
     margin: 10px auto;
@@ -195,13 +203,21 @@ body{
 .box3 table{
     margin: 10px auto;
 }
-.box3 #body-tabla-resultados td,th{
+.box3 #body-tabla-resultados td{
     border: solid red 1px;
     padding: 10px;
     text-align: center;
     font-family: Secular One;
     font-size: 15px;
-    background: linear-gradient(rgb(241, 139, 139),rgb(154, 154, 255));
+    background: #fa89fe;
+}
+.box3 #tabla-resultados th{
+    border: solid red 1px;
+    padding: 10px;
+    text-align: center;
+    font-family: Secular One;
+    font-size: 15px;
+    background: #82ff7e;
 }
 .box3 h1{
     text-align: center;
@@ -232,13 +248,22 @@ body{
 .box2 #tabla-asistencia{
     margin: 10px auto;
 }
-.box2 #body-tabla-asistencia td,th{
+
+.box2 #body-tabla-asistencia td{
     border: solid red 1px;
     padding: 10px;
     text-align: center;
     font-family: Secular One;
     font-size: 15px;
-    background: linear-gradient(rgb(241, 139, 139),rgb(154, 154, 255));
+    background: #fa89fe;
+}
+.box2 #tabla-asistencia th{
+    border: solid red 1px;
+    padding: 10px;
+    text-align: center;
+    font-family: Secular One;
+    font-size: 15px;
+    background: #82ff7e;
 }
 .box2 #input-hora{
     border-radius: 5px;
