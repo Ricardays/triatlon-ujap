@@ -7,22 +7,18 @@
 body{
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100%;
+    /*align-items: center;*/
+    /*min-height: 100%;*/
     background-image: url("./imag/triatlon.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
 }
-img{
-    width: 105%;
-    height: 10%;
-    opacity: 50%;
-}
 .box{
     position: absolute;
-    width: 360px;
-    height: 520px;
+    margin: 3vw 0 0 0;
+    width: 70vw;
+    /*height: 560px;*/
     background-color: #DCD9D4;
     background-image: linear-gradient(to bottom, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), radial-gradient(at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.50) 50%);
     background-blend-mode: soft-light,screen;
@@ -48,7 +44,7 @@ img{
     cursor: pointer;
     border-color: #e4aa4c;
     background-color: #DCD9D4;
-    margin-left: 120px;
+    /*margin-left: 120px;*/
 }
 .box button:hover{
     background-color: #e4aa4c;
@@ -183,4 +179,9 @@ img{
 }
 .box3 table{
     margin: 10px auto;
+}
+
+.button-div{
+    display: flex;
+    justify-content: space-evenly;
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Asistencia de Participantes</title>
+</head>
+<body onload="loadAsistenciaTable()">
+<!--    &lt;!&ndash; Fondo &ndash;&gt;-->
+<!--    <div class="poster">-->
+<!--        <img src="imag/triatlon.jpg" alt="">-->
+<!--    </div>-->
+
+    <div class="box2 glow">
+        <!-- Lista de Registro -->
+        <h1>Indique cuales participantes asistieron al evento</h1>
+        <table id="tabla-asistencia">
+            <thead>
+                <tr>
+                    <th>
+                        Asistencia
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Cedula
+                    </th>
+                    <th>
+                        Municipio
+                    </th>
+                    <th>
+                        Edad
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+<!--            Cargados dinamicamente por js-->
+
+            </tbody>
+
+        </table>
+    </div>
+    <div>
+        <label for="input-hora">Choose a time for your meeting:</label>
+        <input type="time" id="input-hora" name="input-hora"
+               min="00:00" max="23:59" required>
+        <button onclick="redirectResultados()">Iniciar evento</button>
+    </div>
+    <script src="funciones.js"></script>
+</body>
+</html>
