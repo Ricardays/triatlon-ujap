@@ -69,11 +69,12 @@ body{
 .box2{
     position: absolute;
     width: 760px;
-    height: 520px;
+    height: 540px;
     background-color: #DCD9D4;
     background-image: linear-gradient(to bottom, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), radial-gradient(at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.50) 50%);
     background-blend-mode: soft-light,screen;
     border-radius: 25px;
+    margin-top: 50px;
 }
 .box2 h1{
     text-align: center;
@@ -92,8 +93,8 @@ body{
     background-image: linear-gradient(-120deg, #89f7fe 0%, #66a6ff 100%);    background-size: cover;
     background-position: center;
     width: 40%;
-    height: 67vh;
-    border-radius: 0px 0px 0px 25px;
+    height: 70.2vh;
+    border-radius: 0px 10px 0px 25px;
     justify-content: center;
     align-items: center;
 }
@@ -132,7 +133,7 @@ body{
     pointer-events: none;
 }
 .izquierda .Boton input{
-    padding: 10px 20px;
+    padding: 10px 10px;
     border-radius: 10px;
     font-family: Secular One;
     cursor: pointer;
@@ -140,9 +141,22 @@ body{
     background-color: #DCD9D4;
     display: block;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 .izquierda .Boton input:hover{
+    background-color: #f1d8b0;
+}
+.izquierda .btn-continue button{
+    padding: 10px 10px;
+    border-radius: 10px;
+    font-family: Secular One;
+    cursor: pointer;
+    border-color: #e4aa4c;
+    background-color: #DCD9D4;
+    display: block;
+    margin: 10px auto;
+}
+.izquierda .btn-continue button:hover{
     background-color: #f1d8b0;
 }
 .derecha{
@@ -176,12 +190,62 @@ body{
     background-image: linear-gradient(to bottom, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), radial-gradient(at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.50) 50%);
     background-blend-mode: soft-light,screen;
     border-radius: 25px;
+    margin-top: 50px;
 }
 .box3 table{
     margin: 10px auto;
 }
-
+.box3 #body-tabla-resultados td,th{
+    border: solid red 1px;
+    padding: 10px;
+    text-align: center;
+    font-family: Secular One;
+    font-size: 15px;
+    background: linear-gradient(rgb(241, 139, 139),rgb(154, 154, 255));
+}
+.box3 h1{
+    text-align: center;
+    font-size: 28px;
+    margin: 10px;
+    font-family: Secular One;
+}
+.box3 .screen{
+    margin-left: 100px;
+}
 .button-div{
     display: flex;
     justify-content: space-evenly;
+}
+.box2 #tabla-asistencia{
+    margin: 10px auto;
+}
+.box2 #body-tabla-asistencia td,th{
+    border: solid red 1px;
+    padding: 10px;
+    text-align: center;
+    font-family: Secular One;
+    font-size: 15px;
+    background: linear-gradient(rgb(241, 139, 139),rgb(154, 154, 255));
+}
+.box2 #input-hora{
+    border-radius: 5px;
+    border: solid black 1px;
+    width: 100px;
+}
+.box2 label{
+    font-family: Secular One;
+    font-size: 15px;
+    margin-left: 40px;
+}
+.box2 button{
+    padding: 3px 5px;
+    border-radius: 10px;
+    font-family: Secular One;
+    cursor: pointer;
+    border-color: #e4aa4c;
+    background-color: #DCD9D4;
+    margin-left: 10px;
+}
+.box2 button:hover{
+    background-color: #f1d8b0;
 }

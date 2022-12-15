@@ -97,7 +97,7 @@ data.addEventListener("submit", function(eve){
         alert("Si no ingresas un nombre. No puedes participar.");
         document.getElementById("nombre").focus();
     }
-    else if (ced.value.trim() == "" || ced.value.length < 8){
+    else if (ced.value.trim() == "" || ced.value.length < 7){
         alert("Si no ingresas una Cedula. No puedes participar.");
         document.getElementById("cedula").focus();
     }
