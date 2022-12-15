@@ -9,7 +9,10 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100%;
-    background: black;
+    background-image: url("./imag/triatlon.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
 }
 img{
     width: 105%;

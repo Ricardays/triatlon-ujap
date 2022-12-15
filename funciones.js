@@ -1,6 +1,28 @@
+// Estructuras de Datos
+
+class Registro {
+    nombre = "";
+    ced = 0;
+    muni = "";
+    edad = 0;
+    calificado = true;
+
+    constructor(nombre, ced, muni, edad) {
+        this.nombre = nombre;
+        this.ced = ced;
+        this.muni = muni;
+        this.edad = edad;
+    }
+}
+
+
 // Funciones para continuar a la sig pag
 function registro(){
     location.href = "registro.html";
+}
+
+function iniciarEvento(){
+    location.href = "resultados.html"
 }
 
 // Funcion para que ningun parametro quede vacio
@@ -36,6 +58,15 @@ data.addEventListener("submit", function(eve){
 function formulario(){
     data.reset();
 }
+
+// Metodos Simulación Carrera
+
+let registros = [
+    new Registro("Par 1", 123456789, "Muni 1", 18),
+    new Registro("Par 2", 987654321, "Muni 2", 19),
+    new Registro("Par 3", 159753268, "Muni 3", 20),
+    new Registro("Par 4", 684215973, "Muni 4", 21)
+]
 
 
 /*function capturar(){
