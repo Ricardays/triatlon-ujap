@@ -1,0 +1,11 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+span{
+    font-weight: 200;
+    font-size: 100px;
+}
+.c-btn input{
+    width: 40px;
+}
