@@ -36,18 +36,19 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="body-tabla-asistencia">
 <!--            Cargados dinamicamente por js-->
 
             </tbody>
 
         </table>
-    </div>
-    <div>
-        <label for="input-hora">Choose a time for your meeting:</label>
-        <input type="time" id="input-hora" name="input-hora"
-               min="00:00" max="23:59" required>
-        <button onclick="redirectResultados()">Iniciar evento</button>
+
+        <div>
+            <label for="input-hora">Hora inicio Triatlon:</label>
+            <input type="time" id="input-hora" name="input-hora"
+                   min="00:00:00" max="23:59:59" step="2" required>
+            <button onclick="initTriatlon()">Iniciar evento</button>
+        </div>
     </div>
     <script src="funciones.js"></script>
 </body>

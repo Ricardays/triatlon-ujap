@@ -20,8 +20,13 @@ class Participante {
     muni = "";
     edad = 0;
     calificado = true;
-    horaInicio;
-    horaFin;
+    recorrido = 0;
+    caminataInicio = "-";
+    caminataFin = "-";
+    natacionInicio = "-";
+    natacionFin = "-";
+    ciclismoInicio = "-";
+    ciclismoFin = "-";
 
 
     constructor(nombre, ced, muni, edad) {
@@ -56,6 +61,25 @@ let registros = [];
 let participantes = [];
 let aux;
 
+let h  = 0;
+let m = 0;
+let s = 0;
+let mls = 0;
+let timeStarted = 0;
+
+
+// TODO Recordar cambiar por valores correctos
+const DISTANCIA_TOTAL_CAMINATA = 1000;
+const DISTANCIA_TOTAL_NATACION = 1000;
+const DISTANCIA_TOTAL_CICLISMO = 3000;
+
+// distancias en 1 s
+const DISTANCIA_MAX_CAMINATA = 1.94;
+const DISTANCIA_MAX_NATACION = 1.72;
+const DISTANCIA_MAX_CICLISMO = 12.50;
+
+const PROBABILIDAD_DESCALIFICACION = 0;
+
 // Funcion para que ningun parametro quede vacio
 
 const nom = document.getElementById("nombre");
@@ -71,19 +95,19 @@ data.addEventListener("submit", function(eve){
     if(nom.value.trim() == "" || nom.value.length < 1){
         alert("Si no ingresas un nombre. No puedes participar.");
         document.getElementById("nombre").focus();
-    } 
+    }
     else if (ced.value.trim() == "" || ced.value.length < 8){
         alert("Si no ingresas una Cedula. No puedes participar.");
         document.getElementById("cedula").focus();
-    } 
+    }
     else if (muni.value.trim() == "" || muni.value.length < 1){
         alert("Si no ingresas un Municipio de donde vives. No puedes participar.");
         document.getElementById("municipio").focus();
-    } 
+    }
     else if (edad.value.trim() == "" || edad.value.length < 1){
         alert("Si no ingresas una Edad. No te podemos ubicar con los de tu nivel durante la participación.");
         document.getElementById("edad").focus();
-    } 
+    }
     else {
         let dateform = new FormData(data);
 
@@ -109,10 +133,18 @@ data.addEventListener("submit", function(eve){
         cellRef.textContent = age;
 
         registros.push(new Registro(name, ced, mun, age))
-        window.localStorage.setItem("registros", JSON.stringify(registros))
+        localStorage.setItem("registros", JSON.stringify(registros))
         data.reset()
     }
 })
+
+// Registro
+function loadRegistroTable(){
+    // Se limpian los registros
+    registros = []
+    localStorage.setItem("registros", JSON.stringify(registros))
+}
+
 
 // Asistencia
 
@@ -139,7 +171,12 @@ function loadAsistenciaTable(){
     participantes = [];
     localStorage.setItem("participantes", JSON.stringify(participantes));
 
-    let tablaRef = document.getElementById("tabla-asistencia");
+    let tablaRef = document.getElementById("body-tabla-asistencia");
+
+    // Set hour default value
+    let hourRef = document.getElementById("input-hora");
+    const date = new Date();
+    hourRef.value= date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
     // Se llena la tabla con los registros
     registros.forEach(registro => {
@@ -161,69 +198,226 @@ function loadAsistenciaTable(){
         cellRef = rowRef.insertCell(4);
         cellRef.textContent = registro.edad;
     })
+
+
 }
 
+function initTriatlon(){
+    if(participantes.length === 0){
+        alert("No existen participantes para el triatlon")
+    } else {
+        let hourRef = document.getElementById("input-hora");
+        localStorage.setItem("horaInicio", JSON.stringify(hourRef.value));
 
-// funcionamiento del campeonato
-
-function comienza(){
-    // declaramos las variables
-    caminata = 10000, natacion = 10000, ciclismo = 30000;
-    persona = (7 * 1000) / 3600, nadador = 1.72, ciclista = (45 * 1000) / 3600;
-    
-    candidatos = 0 // Se tiene que agregar la cantidad de candidatos que van a concursar
-    distanPersonas = []
-    disNadador = []
-    disCiclista = []
-
-    comenzar()
-}
-function comenzar(){ //Caminata
-    valorMaximoRecorrido = 0;
-    for (let i = 0; i <= candidatos; i++){
-        disCam = Math.random () * caminata;
-        if(disCam > 1){
-            distanPersonas.append(disCam);
-        }
-        else{
-            distanPersonas.append("Descalificado");
-        }
+        participantes.forEach(participante => {
+            participante.caminataInicio = hourRef.value.toString();
+        })
+        localStorage.setItem("participantes", JSON.stringify(participantes));
+        redirectResultados();
     }
-    valorMaximoRecorrido = Math.max(...distanPersonas);
-    return valorMaximoRecorrido
+
 }
 
-function segundo(valorMaximoRecorrido){ // Natacion
-    valorMaximoNadado = 0;
-    for (let i = 0; i<= candidatos; i++){
-        disNat = Math.random () * natacion;
-        if(disCam > 1){
-            disNadador.append(disCam);
-        }
-        else{
-            disNadador.append("Descalificado");
-        }
-    }
-    valorMaximoNadado = Math.max(...disNadador)
-    return valorMaximoNadado
+// Resultados
+
+function loadResultadosTable(){
+    // Se cargan los participantes y la hora
+    participantes = JSON.parse(localStorage.getItem("participantes"));
+    let horaInicio = JSON.parse(localStorage.getItem("horaInicio")).split(":");
+    h = horaInicio[0];
+    m = horaInicio[1];
+    s = horaInicio[2];
+
+    rewriteParticipants();
+    startTimer();
 }
 
-function tercero(valorMaximoNadado){ // Ciclismo
-    valorMaximoPedaleando = 0;
-    for (let i = 0; i<= candidatos; i++){
-        disCicl = Math.random () * ciclismo;
-        if(disCam > 1){
-            disNadador.append(disCam);
-        }
-        else{
-            disNadador.append("Descalificado");
-        }
-    }
-    valorMaximoPedaleando = Math.max(...disNadador)
-    return valorMaximoPedaleando
+function rewriteParticipants(){
+
+    let tablaRef = document.getElementById("body-tabla-resultados");
+    tablaRef.innerHTML = '';
+    aux = document.getElementById('body-tabla-resultados');
+
+    participantes.forEach(participante => {
+        let rowRef = tablaRef.insertRow(-1);
+
+        let cellRef = rowRef.insertCell(0);
+        cellRef.textContent = participante.nombre;
+
+        cellRef = rowRef.insertCell(1);
+        cellRef.textContent = participante.ced;
+
+        cellRef = rowRef.insertCell(2);
+        cellRef.textContent = participante.muni;
+
+        cellRef = rowRef.insertCell(3);
+        cellRef.textContent = participante.edad;
+
+        cellRef = rowRef.insertCell(4);
+        cellRef.textContent = participante.recorrido;
+
+        cellRef = rowRef.insertCell(5);
+        cellRef.textContent = participante.caminataInicio;
+
+        cellRef = rowRef.insertCell(6);
+        cellRef.textContent = participante.caminataFin;
+
+        cellRef = rowRef.insertCell(7);
+        cellRef.textContent = participante.natacionInicio;
+
+        cellRef = rowRef.insertCell(8);
+        cellRef.textContent = participante.natacionFin;
+
+        cellRef = rowRef.insertCell(9);
+        cellRef.textContent = participante.ciclismoInicio;
+
+        cellRef = rowRef.insertCell(10);
+        cellRef.textContent = participante.ciclismoFin;
+    })
 }
 
-function readResultados(){
-    registros = JSON.parse(localStorage.getItem("registros"));
+function writeTime(){
+
+    let time = document.getElementById("time");
+
+    let ht, mt, st, mlst;
+    mls++;
+
+    if(mls > 99){s++; mls = 0;}
+    if(s > 59){m++; s = 0;}
+    if(m > 59){h++; m = 0;}
+    if(h > 24) h=0;
+
+    mlst = ('0' + mls).slice(-2)
+    st = ('0' + s).slice(-2)
+    mt = ('0' + m).slice(-2)
+    ht = ('0' + h).slice(-2)
+
+    time.innerHTML = `${ht}:${mt}:${st}`;
 }
+function startTimer(){
+    writeTime()
+    timeStarted = setInterval(updateParticipants, 10);
+}
+
+function updateParticipants(){
+    writeTime()
+    participantes.forEach(participante => {
+        if(participante.calificado){
+            // El participante no ha sido descalificado
+            if(participante.recorrido < DISTANCIA_TOTAL_CAMINATA){
+                // El participante sigue en Caminata
+                const random = Math.random();
+                if (random - PROBABILIDAD_DESCALIFICACION < 0){
+                    // Descalificar Participante
+                    participante.calificado = false;
+                } else {
+                    // Aumentar recorrido
+                    participante.recorrido += (random*DISTANCIA_MAX_CAMINATA).toFixed(2);
+                    if (participante.recorrido >= DISTANCIA_TOTAL_CAMINATA){
+                        // Cumplió la caminata
+                        participante.caminataFin = "Calcular"
+                        participante.natacionInicio = "Calcular"
+                    }
+                }
+            } else if(participante.recorrido < (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION)){
+                // El participante sigue en Natación
+                const random = Math.random();
+                if (random - PROBABILIDAD_DESCALIFICACION < 0){
+                    // Descalificar Participante
+                    participante.calificado = false;
+                } else {
+                    // Aumentar recorrido
+                    participante.recorrido += (random*DISTANCIA_MAX_NATACION).toFixed(2);
+                    if (participante.recorrido >= (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION)){
+                        // Cumplió la Natación
+                        participante.natacionFin = "Calcular"
+                        participante.ciclismoInicio = "Calcular"
+                    }
+                }
+            } else if(participante.recorrido < (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION + DISTANCIA_TOTAL_CICLISMO)) {
+                // El participante sigue en Ciclismo
+                const random = Math.random();
+                if (random - PROBABILIDAD_DESCALIFICACION < 0) {
+                    // Descalificar Participante
+                    participante.calificado = false;
+                } else {
+                    // Aumentar recorrido
+                    participante.recorrido += (random * DISTANCIA_MAX_CICLISMO).toFixed(2);
+                    if (participante.recorrido >= (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION + DISTANCIA_TOTAL_CICLISMO)) {
+                        // Cumplió el Ciclismo
+                        participante.ciclismoFin = "Calcular"
+                        // Evitar recorridos mayores a la suma de los totales
+                        participante.recorrido = (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION + DISTANCIA_TOTAL_CICLISMO);
+                    }
+                }
+            }
+        }
+    });
+
+    rewriteParticipants();
+}
+
+// // funcionamiento del campeonato
+//
+// function comienza(){
+//     // declaramos las variables
+//     caminata = 10000, natacion = 10000, ciclismo = 30000;
+//     persona = (7 * 1000) / 3600, nadador = 1.72, ciclista = (45 * 1000) / 3600;
+//
+//     candidatos = 0 // Se tiene que agregar la cantidad de candidatos que van a concursar
+//     distanPersonas = []
+//     disNadador = []
+//     disCiclista = []
+//
+//     comenzar()
+// }
+// function comenzar(){ //Caminata
+//     valorMaximoRecorrido = 0;
+//     for (let i = 0; i <= candidatos; i++){
+//         disCam = Math.random () * caminata;
+//         if(disCam > 1){
+//             distanPersonas.append(disCam);
+//         }
+//         else{
+//             distanPersonas.append("Descalificado");
+//         }
+//     }
+//     valorMaximoRecorrido = Math.max(...distanPersonas);
+//     return valorMaximoRecorrido
+// }
+//
+// function segundo(valorMaximoRecorrido){ // Natacion
+//     valorMaximoNadado = 0;
+//     for (let i = 0; i<= candidatos; i++){
+//         disNat = Math.random () * natacion;
+//         if(disCam > 1){
+//             disNadador.append(disCam);
+//         }
+//         else{
+//             disNadador.append("Descalificado");
+//         }
+//     }
+//     valorMaximoNadado = Math.max(...disNadador)
+//     return valorMaximoNadado
+// }
+//
+// function tercero(valorMaximoNadado){ // Ciclismo
+//     valorMaximoPedaleando = 0;
+//     for (let i = 0; i<= candidatos; i++){
+//         disCicl = Math.random () * ciclismo;
+//         if(disCam > 1){
+//             disNadador.append(disCam);
+//         }
+//         else{
+//             disNadador.append("Descalificado");
+//         }
+//     }
+//     valorMaximoPedaleando = Math.max(...disNadador)
+//     return valorMaximoPedaleando
+// }
+//
+// function readResultados(){
+//     registros = JSON.parse(localStorage.getItem("registros"));
+// }
 

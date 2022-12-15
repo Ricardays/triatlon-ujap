@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="estilos.css">
     <title>Registro de Participantes</title>
 </head>
-<body>
+<body onload="loadRegistroTable()">
 <!--    &lt;!&ndash; Fondo &ndash;&gt;-->
 <!--    <div class="poster">-->
 <!--        <img src="imag/triatlon.jpg" alt="">-->
@@ -43,7 +43,7 @@
                     </div>
                     <div class="btn-continue">
                         <button onclick="redirectPrincipal()">Volver</button>
-                        <button onclick="redirectResultados()">Confirmar Asistencia</button>
+                        <button onclick="redirectAsistencia()">Confirmar Asistencia</button>
                     </div>
                 </form>
             </div>

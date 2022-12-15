@@ -7,25 +7,24 @@
     <title>Tabla de Resultados</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
-<body>
-<!--    &lt;!&ndash; Fondo &ndash;&gt;-->
-<!--    <div class="poster">-->
-<!--        <img src="imag/triatlon.jpg" alt="">-->
-<!--    </div>-->
+<body onload="loadResultadosTable()">
 
     <!-- La Tabla lleva: Nombre, Cedula, Municipio, Edad, 
          Hora de inicio y Hora de culminacion de cada
          Disciplina, Tiempo recorrido o Descalificado -->
 
      <div class="box3 glow">
+
+         <h1>Resultados en Directo Triatlon</h1>
+
+         <div class="screen">
+             <span id="time">00:00:00</span>
+         </div>
     
-        <table>
+        <table id="tabla-resultados">
             <thead>
                 <tr>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
+                    <th colspan="5">Participante</th>
                     <th colspan="2">Caminata 10k</th>
                     <th colspan="2">Natacion 10k</th>
                     <th colspan="2">Ciclismo 30k</th>
@@ -35,6 +34,7 @@
                     <th>Cedula</th>
                     <th>Municipio</th>
                     <th>Edad</th>
+                    <th>Distancia</th>
                     <th>Inicio</th>
                     <th>Final</th>
                     <th>Inicio</th>
@@ -43,12 +43,12 @@
                     <th>Final</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="body-tabla-resultados">
 
             </tbody>
         </table>
 
-         <button onclick="readResultados()">Read</button>
+         <button onclick="rewriteParticipants()">Rewrite</button>
     </div>
 
     <script src="funciones.js"></script>
