@@ -177,7 +177,11 @@ function loadAsistenciaTable(){
     // Set hour default value
     let hourRef = document.getElementById("input-hora");
     const date = new Date();
-    hourRef.value= date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    const ht = ('0' + date.getHours()).slice(-2)
+    const mt = ('0' + date.getMinutes()).slice(-2)
+    const st = ('0' + date.getSeconds()).slice(-2)
+
+    hourRef.value= `${ht}:${mt}:${st}`;
 
     // Se llena la tabla con los registros
     registros.forEach(registro => {
