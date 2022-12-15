@@ -19,6 +19,7 @@ class Participante {
     ced = 0;
     muni = "";
     edad = 0;
+    status = "Caminata";
     calificado = true;
     recorrido = 0;
     caminataInicio = "-";
@@ -34,6 +35,7 @@ class Participante {
         this.ced = ced;
         this.muni = muni;
         this.edad = edad;
+        this.status = "Caminata";
     }
 }
 
@@ -69,16 +71,16 @@ let timeStarted = 0;
 
 
 // TODO Recordar cambiar por valores correctos
-const DISTANCIA_TOTAL_CAMINATA = 10000; // metros, valor real = 10000
-const DISTANCIA_TOTAL_NATACION = 10000; // metros, valor real = 10000
-const DISTANCIA_TOTAL_CICLISMO = 30000; // metros, valor real = 30000
+const DISTANCIA_TOTAL_CAMINATA = 10; // metros, valor real = 10000
+const DISTANCIA_TOTAL_NATACION = 10; // metros, valor real = 10000
+const DISTANCIA_TOTAL_CICLISMO = 30; // metros, valor real = 30000
 
 // distancias en 1 s
 const DISTANCIA_MAX_CAMINATA = 1.94; // metros, valor real = 1.94
 const DISTANCIA_MAX_NATACION = 1.72; // metros, valor real = 1.72
 const DISTANCIA_MAX_CICLISMO = 12.50; // metros, valor real = 12.50
 
-const PROBABILIDAD_DESCALIFICACION = 0;
+const PROBABILIDAD_DESCALIFICACION = 0.003; // Entre 0 y 1, valor recomendado 0.003 (0.3% prob de descalificacion)
 const TIME_INTERVAL = 1000; // milisegundos, valor real = 1000
 
 // Funcion para que ningun parametro quede vacio
@@ -233,6 +235,10 @@ function loadResultadosTable(){
     m = horaInicio[1];
     s = horaInicio[2];
 
+    let varDistancia = document.getElementById('distancia');
+
+    varDistancia.innerHTML = (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION + DISTANCIA_TOTAL_CICLISMO) + " m"
+
     rewriteParticipants();
     startTimer();
 }
@@ -245,6 +251,12 @@ function rewriteParticipants(){
 
     participantes.forEach(participante => {
         let rowRef = tablaRef.insertRow(-1);
+
+        if (!participante.calificado){
+            rowRef.style.color = "red";
+        } else if (participante.status === "Finalizado") {
+            rowRef.style.color = "green";
+        }
 
         let cellRef = rowRef.insertCell(0);
         cellRef.textContent = participante.nombre;
@@ -259,24 +271,27 @@ function rewriteParticipants(){
         cellRef.textContent = participante.edad;
 
         cellRef = rowRef.insertCell(4);
-        cellRef.textContent = participante.recorrido.toFixed(2);
+        cellRef.textContent = participante.recorrido.toFixed(2) + " m";
 
         cellRef = rowRef.insertCell(5);
-        cellRef.textContent = participante.caminataInicio;
+        cellRef.textContent = participante.status;
 
         cellRef = rowRef.insertCell(6);
-        cellRef.textContent = participante.caminataFin;
+        cellRef.textContent = participante.caminataInicio;
 
         cellRef = rowRef.insertCell(7);
-        cellRef.textContent = participante.natacionInicio;
+        cellRef.textContent = participante.caminataFin;
 
         cellRef = rowRef.insertCell(8);
-        cellRef.textContent = participante.natacionFin;
+        cellRef.textContent = participante.natacionInicio;
 
         cellRef = rowRef.insertCell(9);
-        cellRef.textContent = participante.ciclismoInicio;
+        cellRef.textContent = participante.natacionFin;
 
         cellRef = rowRef.insertCell(10);
+        cellRef.textContent = participante.ciclismoInicio;
+
+        cellRef = rowRef.insertCell(11);
         cellRef.textContent = participante.ciclismoFin;
     })
 }
@@ -315,9 +330,10 @@ function updateParticipants(){
             if(participante.recorrido < DISTANCIA_TOTAL_CAMINATA){
                 // El participante sigue en Caminata
                 const random = Math.random();
-                if (random - PROBABILIDAD_DESCALIFICACION < 0){
+                if ((random - PROBABILIDAD_DESCALIFICACION) < 0.001){
                     // Descalificar Participante
                     participante.calificado = false;
+                    participante.status = "Descalificado"
                 } else {
                     // Aumentar recorrido
                     participante.recorrido += random*DISTANCIA_MAX_CAMINATA;
@@ -325,14 +341,16 @@ function updateParticipants(){
                         // Cumplió la caminata
                         participante.caminataFin = `${ht}:${mt}:${st}`
                         participante.natacionInicio = `${ht}:${mt}:${st}`
+                        participante.status = "Natación"
                     }
                 }
             } else if(participante.recorrido < (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION)){
                 // El participante sigue en Natación
                 const random = Math.random();
-                if (random - PROBABILIDAD_DESCALIFICACION < 0){
+                if ((random - PROBABILIDAD_DESCALIFICACION) < 0.001){
                     // Descalificar Participante
                     participante.calificado = false;
+                    participante.status = "Descalificado"
                 } else {
                     // Aumentar recorrido
                     participante.recorrido += random*DISTANCIA_MAX_NATACION;
@@ -340,14 +358,16 @@ function updateParticipants(){
                         // Cumplió la Natación
                         participante.natacionFin = `${ht}:${mt}:${st}`
                         participante.ciclismoInicio = `${ht}:${mt}:${st}`
+                        participante.status = "Ciclismo"
                     }
                 }
             } else if(participante.recorrido < (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION + DISTANCIA_TOTAL_CICLISMO)) {
                 // El participante sigue en Ciclismo
                 const random = Math.random();
-                if (random - PROBABILIDAD_DESCALIFICACION < 0) {
+                if (random - PROBABILIDAD_DESCALIFICACION < 0.001) {
                     // Descalificar Participante
                     participante.calificado = false;
+                    participante.status = "Descalificado"
                 } else {
                     // Aumentar recorrido
                     participante.recorrido += random * DISTANCIA_MAX_CICLISMO;
@@ -356,6 +376,7 @@ function updateParticipants(){
                         participante.ciclismoFin = `${ht}:${mt}:${st}`
                         // Evitar recorridos mayores a la suma de los totales
                         participante.recorrido = (DISTANCIA_TOTAL_CAMINATA + DISTANCIA_TOTAL_NATACION + DISTANCIA_TOTAL_CICLISMO);
+                        participante.status = "Finalizado"
                     }
                 }
             }

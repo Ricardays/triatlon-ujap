@@ -209,9 +209,22 @@ body{
     margin: 10px;
     font-family: Secular One;
 }
-.box3 .screen{
+.box3 {
     margin-left: 100px;
 }
+
+.screen {
+    display: flex;
+    justify-content: end;
+    margin-right: 3vw;
+}
+
+.screen-div {
+    margin-left: 3vw;
+    font-weight: 200;
+    font-size: 1.5rem;
+}
+
 .button-div{
     display: flex;
     justify-content: space-evenly;

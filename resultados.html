@@ -18,13 +18,20 @@
          <h1>Resultados en Directo Triatlon</h1>
 
          <div class="screen">
-             <span id="time">00:00:00</span>
+             <div class="screen-div">
+                 <label for="distancia">Distancia Total:</label>
+                 <span id="distancia">0 Km</span>
+             </div>
+             <div class="screen-div">
+                 <label for="time">Hora Actual:</label>
+                 <span id="time">00:00:00</span>
+             </div>
          </div>
     
         <table id="tabla-resultados">
             <thead>
                 <tr>
-                    <th colspan="5">Participante</th>
+                    <th colspan="6">Participante</th>
                     <th colspan="2">Caminata 10k</th>
                     <th colspan="2">Natacion 10k</th>
                     <th colspan="2">Ciclismo 30k</th>
@@ -34,7 +41,8 @@
                     <th>Cedula</th>
                     <th>Municipio</th>
                     <th>Edad</th>
-                    <th>Distancia</th>
+                    <th>Distancia (m)</th>
+                    <th>Status</th>
                     <th>Inicio</th>
                     <th>Final</th>
                     <th>Inicio</th>
